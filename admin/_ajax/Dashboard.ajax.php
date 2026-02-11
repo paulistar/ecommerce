@@ -59,7 +59,10 @@ if ($PostData && $PostData['callback_action'] && $PostData['callback'] == $CallB
             $DateDiff = $DateNow->diff($DatePing)->days;
 
             if ($DateDiff >= 5):
-                set_error_handler(create_function('$severity, $message, $file, $line', 'throw new ErrorException($message, $severity, $severity, $file, $line);'));
+                // PHP 8+: create_function() removed; use a closure.
+                set_error_handler(function ($severity, $message, $file, $line) {
+                    throw new ErrorException($message, $severity, $severity, $file, $line);
+                });
                 try {
                     $PostLicence = file_get_contents("https://download.workcontrol.com.br?h={$LicenseDomain->license_hash}&d=" . urlencode(BASE));
                     $resultLicence = json_decode($PostLicence);

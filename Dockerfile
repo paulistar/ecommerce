@@ -1,6 +1,4 @@
-FROM php:7.4-apache
-
-# WorkControl legacy code uses create_function(), which is not available on PHP 8+.
+FROM php:8.4-apache
 
 RUN set -eux; \
   a2enmod rewrite headers; \
@@ -8,6 +6,7 @@ RUN set -eux; \
   apt-get install -y --no-install-recommends \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
+    libonig-dev \
     libpng-dev \
     libzip-dev \
   ; \
@@ -46,4 +45,3 @@ RUN set -eux; \
     echo 'memory_limit=256M'; \
     echo 'max_execution_time=120'; \
   } > /usr/local/etc/php/conf.d/app.ini
-

@@ -96,7 +96,10 @@ if ($PostData && $PostData['callback_action'] && $PostData['callback'] == $CallB
             if (in_array('', $PostData)):
                 $jSON['trigger'] = AjaxErro("<b class='icon-warning'>LICENSE KEY:</b> Para licenciar um domínio é preciso informar seus dados e a chave da licença!", E_USER_WARNING);
             else:
-                set_error_handler(create_function('$severity, $message, $file, $line', 'throw new ErrorException($message, $severity, $severity, $file, $line);'));
+                // PHP 8+: create_function() removed; use a closure.
+                set_error_handler(function ($severity, $message, $file, $line) {
+                    throw new ErrorException($message, $severity, $severity, $file, $line);
+                });
                 try {
                     $PostLicence = file_get_contents("https://download.workcontrol.com.br?k={$PostData['licene_key']}&u={$PostData['user_email']}&p=" . hash('sha512', $PostData['user_password']) . "&v=" . ADMIN_VERSION . "&d=" . urlencode(BASE));
                     $resultLicence = json_decode($PostLicence);
