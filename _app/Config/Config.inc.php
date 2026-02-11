@@ -1,16 +1,19 @@
 <?php
 
-if (!$WorkControlDefineConf):
-    /*
-     * URL DO SISTEMA
-     */
-    if ($_SERVER['HTTP_HOST'] == 'localhost'):
-        define('BASE', 'https://localhost/charme_fitness'); //Url raiz do site no localhost
-    else:
-        define('BASE', 'https://www.charmefitness.com.br'); //Url raiz do site no servidor
-    endif;
-    define('THEME', 'charme_fitness'); //template do site
-endif;
+	if (!$WorkControlDefineConf):
+	    /*
+	     * URL DO SISTEMA
+	     */
+	    if (getenv('BASE_URL')):
+	        define('BASE', getenv('BASE_URL')); //Url raiz do site (preferencialmente via env no deploy)
+	    elseif ($_SERVER['HTTP_HOST'] == 'localhost'):
+	        define('BASE', 'https://localhost/charme_fitness'); //Url raiz do site no localhost
+	    else:
+	        $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+	        define('BASE', "{$scheme}://{$_SERVER['HTTP_HOST']}"); //Url raiz do site no servidor
+	    endif;
+	    define('THEME', 'charme_fitness'); //template do site
+	endif;
 
 //DINAMYC THEME
 if (!empty($_SESSION['WC_THEME'])):
