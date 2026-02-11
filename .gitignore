@@ -1,0 +1,14 @@
+# OS / editor junk
+.DS_Store
+Thumbs.db
+.idea/
+
+# Runtime/generated
+cache/
+*.log
+
+# Database dumps / backups (don't commit data or secrets)
+*.sql
+
+# If you generate these locally, keep them out of git
+sitemap.xml.gz
