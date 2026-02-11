@@ -4,7 +4,8 @@ Thumbs.db
 .idea/
 
 # Runtime/generated
-cache/
+cache/*
+!cache/.gitkeep
 *.log
 
 # Database dumps / backups (don't commit data or secrets)
