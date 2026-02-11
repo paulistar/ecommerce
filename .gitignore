@@ -10,6 +10,7 @@ cache/*
 
 # Database dumps / backups (don't commit data or secrets)
 *.sql
+!db/*.sql
 
 # If you generate these locally, keep them out of git
 sitemap.xml.gz
